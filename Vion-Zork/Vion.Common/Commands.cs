@@ -1,0 +1,29 @@
+﻿namespace Zork
+{
+    enum Commands
+    {
+        QUIT,
+        LOOK,
+        NORTH,
+        SOUTH,
+        WEST,
+        EAST,
+        TAKE,
+        DROP,
+        INVENTORY,
+        READ,
+        EAT,
+        DRINK,
+        USE,
+        GIVE,
+        PUT,
+        PUSH,
+        MOVE,
+        SAVE,
+        LOAD,
+        SCORE,
+        TIME,
+        HELP,
+        UNKNOWN
+    } 
+}

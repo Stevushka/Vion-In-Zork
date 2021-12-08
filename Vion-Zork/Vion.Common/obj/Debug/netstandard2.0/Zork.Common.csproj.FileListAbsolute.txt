@@ -1,0 +1,12 @@
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\bin\Debug\netstandard2.0\Zork.Common.deps.json
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\bin\Debug\netstandard2.0\Zork.Common.dll
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\bin\Debug\netstandard2.0\Zork.Common.pdb
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\obj\Debug\netstandard2.0\Zork.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\obj\Debug\netstandard2.0\Zork.Common.AssemblyInfoInputs.cache
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\obj\Debug\netstandard2.0\Zork.Common.AssemblyInfo.cs
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\obj\Debug\netstandard2.0\Zork.Common.csproj.CoreCompileInputs.cache
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\obj\Debug\netstandard2.0\Zork.Common.dll
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Common\obj\Debug\netstandard2.0\Zork.Common.pdb
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Unity\Assets\netstandard2.0\Zork.Common.deps.json
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Unity\Assets\netstandard2.0\Zork.Common.dll
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Unity\Assets\netstandard2.0\Zork.Common.pdb

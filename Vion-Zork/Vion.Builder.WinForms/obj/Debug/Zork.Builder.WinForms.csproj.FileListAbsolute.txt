@@ -1,0 +1,15 @@
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\bin\Debug\Zork.Builder.WinForms.exe.config
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\bin\Debug\Zork.Builder.WinForms.exe
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\bin\Debug\Zork.Builder.WinForms.pdb
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\bin\Debug\Newtonsoft.Json.dll
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\bin\Debug\Zork.Common.dll
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\bin\Debug\Zork.Common.pdb
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\bin\Debug\Newtonsoft.Json.xml
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork.Builder.WinForms.csproj.AssemblyReference.cache
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork_Builder.MainForm.resources
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork.Builder.WinForms.Properties.Resources.resources
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork.Builder.WinForms.csproj.GenerateResource.cache
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork.Builder.WinForms.csproj.CoreCompileInputs.cache
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork.Builder.WinForms.csproj.CopyComplete
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork.Builder.WinForms.exe
+C:\Users\stevu\Desktop\Zork-Repo\Zork\Zork.Builder.WinForms\obj\Debug\Zork.Builder.WinForms.pdb
