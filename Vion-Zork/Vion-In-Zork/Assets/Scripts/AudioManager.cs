@@ -7,9 +7,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource = null;
 
-    [SerializeField]
-    private List<AudioClip> Male_Sounds = new List<AudioClip>();
+    public List<AudioClip> Male_Sounds = new List<AudioClip>();
 
-    [SerializeField]
-    private List<AudioClip> Female_Sounds = new List<AudioClip>();
+    public List<AudioClip> Female_Sounds = new List<AudioClip>();
 }

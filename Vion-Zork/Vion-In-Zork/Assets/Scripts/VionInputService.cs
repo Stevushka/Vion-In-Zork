@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-//using Zork;
+using Vion;
 
-public class VionInputService : MonoBehaviour
+public class VionInputService : MonoBehaviour, IInputService
 {
     [SerializeField]
     private TMP_InputField InputField = null;

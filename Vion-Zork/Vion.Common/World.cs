@@ -3,7 +3,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Zork
+namespace Vion
 {
     public class World
     {

@@ -1,7 +1,4 @@
-C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Vion.Console.csproj.AssemblyReference.cache
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Vion.Console.csproj.CoreCompileInputs.cache
-C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Zork.Console.exe
-C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Zork.Console.pdb
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\bin\Debug\Zork.json
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\bin\Debug\Zork.Console.exe.config
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\bin\Debug\Zork.Console.exe
@@ -10,4 +7,7 @@ C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\bin\Debug\Newton
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\bin\Debug\Vion.Common.dll
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\bin\Debug\Vion.Common.pdb
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\bin\Debug\Newtonsoft.Json.xml
+C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Vion.Console.csproj.AssemblyReference.cache
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Vion.Console.csproj.CopyComplete
+C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Zork.Console.exe
+C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Console\obj\Debug\Zork.Console.pdb

@@ -1,17 +1,41 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Zork
+namespace Vion
 {
     public class Player
     {
+        public event EventHandler<string> CityChanged;
+
         public event EventHandler<Room> LocationChanged;
+
+        public event EventHandler<string> NameChanged;
+
+        public event EventHandler<Gender> GenderChanged;
 
         public event EventHandler<int> ScoreChanged;
 
         public event EventHandler<int> MovesChanged;
 
         public World World { get; }
+
+        [JsonIgnore]
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+
+            set
+            {
+                if (_city != value)
+                {
+                    _city = value;
+                    CityChanged?.Invoke(this, _city);
+                }
+            }
+        }
 
         [JsonIgnore]
         public Room Location
@@ -27,6 +51,42 @@ namespace Zork
                 {
                     _location = value;
                     LocationChanged?.Invoke(this, _location);
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public string PlayerName
+        {
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NameChanged?.Invoke(this, _name);
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public Gender PlayerGender
+        {
+            get
+            {
+                return _gender;
+            }
+
+            set
+            {
+                if (_gender != value)
+                {
+                    _gender = value;
+                    GenderChanged?.Invoke(this, _gender);
                 }
             }
         }
@@ -99,7 +159,10 @@ namespace Zork
             return isValidMove;
         }
 
+        private string _city;
         private Room _location;
+        private string _name;
+        private Gender _gender;
         public int _moves;
         public int _score;
     }

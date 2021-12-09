@@ -4,8 +4,9 @@ using UnityEngine.UI;
 using System.Linq;
 using System.Collections.Generic;
 using TMPro;
+using Vion;
 
-public class VionOutputService : MonoBehaviour
+public class VionOutputService : MonoBehaviour, IOutputService
 {
     [SerializeField]
     private int MaxEntries = 10;

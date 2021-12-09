@@ -3,7 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Zork
+namespace Vion
 {
     public class Room : IEquatable<Room>
     {

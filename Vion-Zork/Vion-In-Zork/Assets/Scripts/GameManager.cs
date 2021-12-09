@@ -4,55 +4,138 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System;
 using TMPro;
-//using Zork;
+using Vion;
 
 public class GameManager : MonoBehaviour
 {
     #region References
+        [Header("Text Asset")]
+        [SerializeField]
+        private TextAsset gameTextAsset = null;
+
         [Header("Audio")]
         [SerializeField]
-        private AudioManager audioManager = null;
+        private AudioManager Audio_Manager = null;
 
         [Header("I/O Services")]
         [SerializeField]
-        private VionInputService vionInputService = null;
+        private VionInputService InputService = null;
 
         [SerializeField]
-        private VionOutputService vionOutputService = null;
+        private VionOutputService OutputService = null;
 
         [Header("UI Fields")]
         [SerializeField]
-        private TextMeshProUGUI currentCityText = null;
+        private TextMeshProUGUI CurrentCityText = null;
 
         [SerializeField]
-        private TextMeshProUGUI currentLocationText = null;
+        private TextMeshProUGUI CurrentLocationText = null;
 
         [SerializeField]
-        private TextMeshProUGUI characterNameText = null;
+        private TextMeshProUGUI CharacterNameText = null;
 
         [SerializeField]
-        private TextMeshProUGUI scoreText = null;
+        private TextMeshProUGUI ScoreText = null;
+
+        [SerializeField]
+        private TextMeshProUGUI MovesText = null;
     #endregion
 
     #region Variables
-        private List<AudioClip> Player_Sounds = new List<AudioClip>();
+    private List<AudioClip> PlayerSounds = new List<AudioClip>();
     #endregion
 
     void Start()
     {
-        TextAsset gameTextAsset = Resources.Load<TextAsset>("Vion");
-        //_game = JsonConvert.DeserializeObject<Game>(gameTextAsset.text);
-        //_game.Player.LocationChanged += CurrentLocationChanged;
+        //Setup
+        //TextAsset gameTextAsset = Resources.Load<TextAsset>("Zork");
+        _game = Game.Load(gameTextAsset.text);
+        CurrentCityText.text = string.Empty;
+        CurrentLocationText.text = string.Empty;
+        CharacterNameText.text = string.Empty;
+        ScoreText.text = string.Empty;
+        MovesText.text = string.Empty;
 
-        //_game.Start(InputService, OutputService);
-        //CurrentLocationText.text = _game.Player.Location.ToString();
+        //Events
+        _game.Player.CityChanged += PlayerCityChanged;
+        _game.Player.LocationChanged += PlayerLocationChanged;
+        _game.Player.NameChanged += PlayerNameChanged;
+        _game.Player.GenderChanged += PlayerGenderChanged;
+        _game.Player.ScoreChanged += PlayerScoreChanged;
+        _game.Player.MovesChanged += PlayerMovesChanged;
+        _game.GameInit += Game_Init;
+        _game.GameQuit += Game_Quit;
+
+        //Start
+        _game.Start(InputService, OutputService);
+        OutputService.WriteLine("Press any key to begin!");
+        InputService.SelectInputField();
     }
 
+    private void PlayerGenderChanged(object sender, Gender gender)
+    {
+        PlayerSounds.Clear();
+        switch(gender)
+        {
+            case Gender.MALE:
+                foreach (AudioClip clip in Audio_Manager.Male_Sounds)
+                    PlayerSounds.Add(clip);
+                break;
 
-    //private void CurrentLocationChanged(object sender, Room newLocation)
-    //{
-    //    currentLocationText.text = newLocation.ToString();
-    //}
+            case Gender.FEMALE:
+                foreach(AudioClip clip in Audio_Manager.Female_Sounds)
+                    PlayerSounds.Add(clip);
+                break;
+        }
+    }
 
-    //private Game _game;
+    private void Game_Init(object sender, EventArgs e)
+    {
+        OutputService.WriteLine(string.IsNullOrWhiteSpace(_game.WelcomeMessage) ? "Welcome To Zork!" : _game.WelcomeMessage);
+        CurrentCityText.text = _game.Player.City; 
+        CurrentLocationText.text = _game.Player.Location.Name;
+        CharacterNameText.text = _game.Player.PlayerName;
+        ScoreText.text = "Score: " + _game.Player.Score.ToString();
+        MovesText.text = "Moves: " + _game.Player.Moves.ToString();
+        _game.Look(_game);
+    }
+
+    private void Game_Quit(object sender, EventArgs e)
+    {
+        OutputService.WriteLine(string.IsNullOrWhiteSpace(_game.ExitMessage) ? "Thank you for playing!" : _game.ExitMessage);
+
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+
+    private void PlayerScoreChanged(object sender, int newScore)
+    {
+        ScoreText.text = "Score: " + newScore.ToString();
+    }
+
+    private void PlayerMovesChanged(object sender, int newMoves)
+    {
+        MovesText.text = "Moves: " + newMoves.ToString();
+    }
+
+    private void PlayerLocationChanged(object sender, Room newLocation)
+    {
+        CurrentLocationText.text = newLocation.ToString();
+        _game.Look(_game);
+    }
+
+    private void PlayerCityChanged(object sender, string newCity)
+    {
+        CurrentCityText.text = newCity.ToString();
+    }
+
+    private void PlayerNameChanged(object sender, string newName)
+    {
+        CharacterNameText.text = newName.ToString();
+    }
+
+    private Game _game;
 }

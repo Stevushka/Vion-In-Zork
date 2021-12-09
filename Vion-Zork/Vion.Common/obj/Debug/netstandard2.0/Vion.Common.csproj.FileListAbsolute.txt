@@ -5,9 +5,8 @@ C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstan
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.AssemblyInfoInputs.cache
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.AssemblyInfo.cs
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.csproj.CoreCompileInputs.cache
-C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.dll
-C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.pdb
-C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.csproj.AssemblyReference.cache
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion-In-Zork\Assets\netstandard2.0\Vion.Common.deps.json
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion-In-Zork\Assets\netstandard2.0\Vion.Common.dll
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion-In-Zork\Assets\netstandard2.0\Vion.Common.pdb
+C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.dll
+C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.pdb

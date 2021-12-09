@@ -7,12 +7,12 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Zork;
+using Vion;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 
-namespace Zork_Builder
+namespace Vion_Builder
 {
     public partial class MainForm : Form
     {

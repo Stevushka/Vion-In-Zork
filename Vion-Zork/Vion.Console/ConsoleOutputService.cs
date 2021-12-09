@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zork
+namespace Vion
 {
     public class ConsoleOutputService : IOutputService
     {
