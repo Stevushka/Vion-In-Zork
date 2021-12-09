@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using TMPro;
 using Vion;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
 
         [Header("Audio")]
         [SerializeField]
-        private AudioManager Audio_Manager = null;
+        private AudioManager Audio = null;
 
         [Header("I/O Services")]
         [SerializeField]
@@ -48,7 +49,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //Setup
-        //TextAsset gameTextAsset = Resources.Load<TextAsset>("Zork");
         _game = Game.Load(gameTextAsset.text);
         CurrentCityText.text = string.Empty;
         CurrentLocationText.text = string.Empty;
@@ -66,24 +66,29 @@ public class GameManager : MonoBehaviour
         _game.GameInit += Game_Init;
         _game.GameQuit += Game_Quit;
 
+
+        //Testing
+        _game.Player.ReceiveDamage += PlayerTakeDamage;
+
+
         //Start
         _game.Start(InputService, OutputService);
         OutputService.WriteLine("Press any key to begin!");
         InputService.SelectInputField();
     }
 
-    private void PlayerGenderChanged(object sender, Gender gender)
+    private void PlayerGenderChanged(object sender, Gender? gender)
     {
         PlayerSounds.Clear();
         switch(gender)
         {
             case Gender.MALE:
-                foreach (AudioClip clip in Audio_Manager.Male_Sounds)
+                foreach (AudioClip clip in Audio.Male_Sounds)
                     PlayerSounds.Add(clip);
                 break;
 
             case Gender.FEMALE:
-                foreach(AudioClip clip in Audio_Manager.Female_Sounds)
+                foreach(AudioClip clip in Audio.Female_Sounds)
                     PlayerSounds.Add(clip);
                 break;
         }
@@ -92,7 +97,8 @@ public class GameManager : MonoBehaviour
     private void Game_Init(object sender, EventArgs e)
     {
         OutputService.WriteLine(string.IsNullOrWhiteSpace(_game.WelcomeMessage) ? "Welcome To Zork!" : _game.WelcomeMessage);
-        CurrentCityText.text = _game.Player.City; 
+        //CurrentCityText.text = _game.Player.City;
+        _game.Player.City = "Avetica";
         CurrentLocationText.text = _game.Player.Location.Name;
         CharacterNameText.text = _game.Player.PlayerName;
         ScoreText.text = "Score: " + _game.Player.Score.ToString();
@@ -135,6 +141,12 @@ public class GameManager : MonoBehaviour
     private void PlayerNameChanged(object sender, string newName)
     {
         CharacterNameText.text = newName.ToString();
+    }
+
+    private void PlayerTakeDamage(object sender, int amount)
+    {
+        Audio.audioSource.clip = PlayerSounds[Random.Range(0, PlayerSounds.Count)];
+        Audio.audioSource.Play();
     }
 
     private Game _game;

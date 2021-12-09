@@ -31,6 +31,26 @@ namespace Vion
                 input.ProcessInput();
             }
 
+            while (game.ChoosingGender)
+            {
+                if(game.Player.PlayerGender == null)
+                {
+                    output.WriteLine("Are You A Male Or Female?");
+                    output.Write("\n> ");
+                    input.ProcessInput();
+                }
+            }
+
+            while (game.ChoosingName)
+            {
+                if(string.IsNullOrEmpty(game.Player.PlayerName))
+                {
+                    output.WriteLine("What Is Your Name?");
+                    output.Write("\n> ");
+                    input.ProcessInput();
+                }
+            }
+
             Room previousRoom = null;
             while (game.IsRunning)
             {

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField]
-    private AudioSource audioSource = null;
+    public AudioSource audioSource = null;
 
     public List<AudioClip> Male_Sounds = new List<AudioClip>();
 

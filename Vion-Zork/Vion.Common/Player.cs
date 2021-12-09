@@ -11,11 +11,13 @@ namespace Vion
 
         public event EventHandler<string> NameChanged;
 
-        public event EventHandler<Gender> GenderChanged;
+        public event EventHandler<Gender?> GenderChanged;
 
         public event EventHandler<int> ScoreChanged;
 
         public event EventHandler<int> MovesChanged;
+
+        public event EventHandler<int> ReceiveDamage;
 
         public World World { get; }
 
@@ -74,7 +76,7 @@ namespace Vion
         }
 
         [JsonIgnore]
-        public Gender PlayerGender
+        public Gender? PlayerGender
         {
             get
             {
@@ -148,6 +150,11 @@ namespace Vion
             Score = 0;
         }
 
+        public void TakeDamage(Game game)
+        {
+            ReceiveDamage?.Invoke(game, 0);
+        }
+
         public bool Move(Directions direction)
         {
             bool isValidMove = Location.Neighbors.TryGetValue(direction, out Room destination);
@@ -162,7 +169,7 @@ namespace Vion
         private string _city;
         private Room _location;
         private string _name;
-        private Gender _gender;
+        private Gender? _gender;
         public int _moves;
         public int _score;
     }
