@@ -130,6 +130,7 @@ namespace Vion
         {
             if (!string.IsNullOrWhiteSpace(commandString))
             {
+                Output.WriteLine("Are You A Male Or Female?");
                 ChooseGender();
             }
         }
@@ -142,18 +143,20 @@ namespace Vion
                 {
                     case Gender.MALE:
                         this.Player.PlayerGender = Gender.MALE;
+                        Output.WriteLine("What Is Your Name?");
                         ChooseName();
                         break;
 
                     case Gender.FEMALE:
                         this.Player.PlayerGender = Gender.FEMALE;
+                        Output.WriteLine("What Is Your Name?");
                         ChooseName();
                         break;
                 }
             }
             catch
             {
-                Output.WriteLine("Not A Valid Gender!");
+                Output.WriteLine("Are You A Male Or Female?");
             }
         }
 
@@ -164,6 +167,10 @@ namespace Vion
                 this.Player.PlayerName = commandString;
                 GameInit?.Invoke(this, null);
                 Play();
+            }
+            else
+            {
+                Output.WriteLine("What Is Your Name?");
             }
         }
 
