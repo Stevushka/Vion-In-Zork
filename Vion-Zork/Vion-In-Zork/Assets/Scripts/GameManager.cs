@@ -39,7 +39,16 @@ public class GameManager : MonoBehaviour
         private TextMeshProUGUI ScoreText = null;
 
         [SerializeField]
-        private TextMeshProUGUI MovesText = null;
+        private TextMeshProUGUI CompassText = null;
+
+        [SerializeField]
+        private TextMeshProUGUI GoldText = null;
+
+        [SerializeField]
+        private TextMeshProUGUI LevelText = null;
+
+        [SerializeField]
+        private TextMeshProUGUI HealthText = null;
     #endregion
 
     #region Variables
@@ -54,7 +63,10 @@ public class GameManager : MonoBehaviour
         CurrentLocationText.text = string.Empty;
         CharacterNameText.text = string.Empty;
         ScoreText.text = string.Empty;
-        MovesText.text = string.Empty;
+        CompassText.text = string.Empty;
+        GoldText.text = string.Empty;
+        LevelText.text = string.Empty;
+        HealthText.text = string.Empty;
 
         //Events
         _game.Player.CityChanged += PlayerCityChanged;
@@ -62,7 +74,10 @@ public class GameManager : MonoBehaviour
         _game.Player.NameChanged += PlayerNameChanged;
         _game.Player.GenderChanged += PlayerGenderChanged;
         _game.Player.ScoreChanged += PlayerScoreChanged;
-        _game.Player.MovesChanged += PlayerMovesChanged;
+        _game.Player.CompassChanged += CompassChanged;
+        _game.Player.LevelChanged += PlayerLevelChanged;
+        _game.Player.GoldChanged += PlayerGoldChanged;
+        _game.Player.HealthChanged += PlayerHealthChanged;
         _game.GameInit += Game_Init;
         _game.GameQuit += Game_Quit;
 
@@ -98,11 +113,14 @@ public class GameManager : MonoBehaviour
     {
         OutputService.WriteLine(string.IsNullOrWhiteSpace(_game.WelcomeMessage) ? "Welcome To Zork!" : _game.WelcomeMessage);
         //CurrentCityText.text = _game.Player.City;
-        _game.Player.City = "Avetica";
         CurrentLocationText.text = _game.Player.Location.Name;
         CharacterNameText.text = _game.Player.PlayerName;
         ScoreText.text = "Score: " + _game.Player.Score.ToString();
-        MovesText.text = "Moves: " + _game.Player.Moves.ToString();
+        CompassText.text = _game.Player.Compass;
+        GoldText.text = _game.Player.Gold.ToString() + " g";
+        LevelText.text = "lvl. " + _game.Player.Level.ToString();
+        HealthText.text = _game.Player.Health + " HP";
+
         _game.Look(_game);
     }
 
@@ -122,9 +140,24 @@ public class GameManager : MonoBehaviour
         ScoreText.text = "Score: " + newScore.ToString();
     }
 
-    private void PlayerMovesChanged(object sender, int newMoves)
+    private void PlayerLevelChanged(object sender, int newLevel)
     {
-        MovesText.text = "Moves: " + newMoves.ToString();
+        LevelText.text = "lvl. " + newLevel.ToString();
+    }
+
+    private void PlayerGoldChanged(object sender, int newGold)
+    {
+        LevelText.text = newGold.ToString() + " g";
+    }
+
+    private void PlayerHealthChanged(object sender, int newHealth)
+    {
+        HealthText.text = newHealth.ToString() + " HP";
+    }
+
+    private void CompassChanged(object sender, string newHeading)
+    {
+        CompassText.text = newHeading;
     }
 
     private void PlayerLocationChanged(object sender, Room newLocation)

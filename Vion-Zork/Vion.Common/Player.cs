@@ -15,7 +15,15 @@ namespace Vion
 
         public event EventHandler<int> ScoreChanged;
 
-        public event EventHandler<int> MovesChanged;
+        public event EventHandler<int> GoldChanged;
+
+        public event EventHandler<int> LevelChanged;
+
+        public event EventHandler<int> HealthChanged;
+
+        public event EventHandler<int> MaxHealthChanged;
+
+        public event EventHandler<string> CompassChanged;
 
         public event EventHandler<int> ReceiveDamage;
 
@@ -94,6 +102,24 @@ namespace Vion
         }
 
         [JsonIgnore]
+        public string Compass
+        {
+            get
+            {
+                return _compass;
+            }
+
+            set
+            {
+                if (_compass != value)
+                {
+                    _compass = value;
+                    CompassChanged?.Invoke(this, _compass);
+                }
+            }
+        }
+
+        [JsonIgnore]
         public int Score
         {
             get
@@ -112,6 +138,75 @@ namespace Vion
         }
 
         [JsonIgnore]
+        public int Gold
+        {
+            get
+            {
+                return _gold;
+            }
+
+            set
+            {
+                if (true)
+                {
+                    _gold = value;
+                    GoldChanged?.Invoke(this, _gold);
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public int Level
+        {
+            get
+            {
+                return _level;
+            }
+
+            set
+            {
+                if (true)
+                {
+                    _level = value;
+                    LevelChanged?.Invoke(this, _level);
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public int Health
+        {
+            get
+            {
+                return _health;
+            }
+
+            set
+            {
+                if (value >= _maxHealth)
+                    _health = _maxHealth;
+                else
+                    _health = value;
+                HealthChanged?.Invoke(this, _health);
+            }
+        }
+
+        [JsonIgnore]
+        public int MaxHealth
+        {
+            get
+            {
+                return _maxHealth;
+            }
+
+            set
+            {
+                _maxHealth = value;
+                MaxHealthChanged?.Invoke(this, _maxHealth);
+            }
+        }
+
+        [JsonIgnore]
         public int Moves
         {
             get
@@ -124,7 +219,7 @@ namespace Vion
                 if (_moves != value)
                 {
                     _moves = value;
-                    MovesChanged?.Invoke(this, _moves);
+                    //GoldChanged?.Invoke(this, _moves);
                 }
             }
         }
@@ -146,8 +241,12 @@ namespace Vion
         {
             World = world;
             LocationName = startingLocation;
-            Moves = 0;
+            Gold = 0;
+            Level = 1;
             Score = 0;
+            Compass = "--";
+            MaxHealth = 20;
+            Health = MaxHealth;
         }
 
         public void TakeDamage(Game game)
@@ -170,7 +269,12 @@ namespace Vion
         private Room _location;
         private string _name;
         private Gender? _gender;
-        public int _moves;
-        public int _score;
+        private string _compass;
+        private int _gold;
+        private int _level;
+        private int _score;
+        private int _moves;
+        private int _health;
+        private int _maxHealth;
     }
 }

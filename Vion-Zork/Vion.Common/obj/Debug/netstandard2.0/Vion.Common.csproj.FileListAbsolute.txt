@@ -10,3 +10,4 @@ C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion-In-Zork\Assets\netstanda
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion-In-Zork\Assets\netstandard2.0\Vion.Common.pdb
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.dll
 C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.pdb
+C:\Users\stevu\Desktop\Vion-In-Zork-Repo\Vion-Zork\Vion.Common\obj\Debug\netstandard2.0\Vion.Common.csproj.AssemblyReference.cache
