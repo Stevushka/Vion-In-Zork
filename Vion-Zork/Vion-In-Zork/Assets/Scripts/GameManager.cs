@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
         [Header("UI Fields")]
         [SerializeField]
-        private TextMeshProUGUI CurrentCityText = null;
+        private TextMeshProUGUI CurrentRegionText = null;
 
         [SerializeField]
         private TextMeshProUGUI CurrentLocationText = null;
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     {
         //Setup
         _game = Game.Load(gameTextAsset.text);
-        CurrentCityText.text = string.Empty;
+        CurrentRegionText.text = string.Empty;
         CurrentLocationText.text = string.Empty;
         CharacterNameText.text = string.Empty;
         ScoreText.text = string.Empty;
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         HealthText.text = string.Empty;
 
         //Events
-        _game.Player.CityChanged += PlayerCityChanged;
+        _game.Player.RegionChanged += PlayerRegionChanged;
         _game.Player.LocationChanged += PlayerLocationChanged;
         _game.Player.NameChanged += PlayerNameChanged;
         _game.Player.GenderChanged += PlayerGenderChanged;
@@ -111,14 +111,18 @@ public class GameManager : MonoBehaviour
 
     private void Game_Init(object sender, EventArgs e)
     {
-        OutputService.WriteLine(string.IsNullOrWhiteSpace(_game.WelcomeMessage) ? "Welcome To Zork!" : _game.WelcomeMessage);
-        //CurrentCityText.text = _game.Player.City;
+        OutputService.WriteLine(string.IsNullOrWhiteSpace(_game.WelcomeMessage) ? "Welcome To Vion!" : _game.WelcomeMessage);
+
+        CurrentRegionText.text = _game.Player.Region;
         CurrentLocationText.text = _game.Player.Location.Name;
-        CharacterNameText.text = _game.Player.PlayerName;
+        
         ScoreText.text = "Score: " + _game.Player.Score.ToString();
         CompassText.text = _game.Player.Compass;
+
+        CharacterNameText.text = _game.Player.PlayerName;
         GoldText.text = _game.Player.Gold.ToString() + " g";
         LevelText.text = "lvl. " + _game.Player.Level.ToString();
+
         HealthText.text = _game.Player.Health + " HP";
 
         _game.Look(_game);
@@ -135,45 +139,44 @@ public class GameManager : MonoBehaviour
         #endif
     }
 
+    private void PlayerRegionChanged(object sender, string newRegion)
+    {
+        CurrentRegionText.text = newRegion.ToString();
+    }
+
+    private void PlayerLocationChanged(object sender, Location newLocation)
+    {
+        CurrentLocationText.text = newLocation.ToString();
+        _game.Look(_game);
+    }
+    private void CompassChanged(object sender, string newHeading)
+    {
+        CompassText.text = newHeading;
+    }
+
     private void PlayerScoreChanged(object sender, int newScore)
     {
         ScoreText.text = "Score: " + newScore.ToString();
     }
 
-    private void PlayerLevelChanged(object sender, int newLevel)
+    private void PlayerNameChanged(object sender, string newName)
     {
-        LevelText.text = "lvl. " + newLevel.ToString();
+        CharacterNameText.text = newName.ToString();
     }
 
     private void PlayerGoldChanged(object sender, int newGold)
     {
         LevelText.text = newGold.ToString() + " g";
     }
+    
+    private void PlayerLevelChanged(object sender, int newLevel)
+    {
+        LevelText.text = "lvl. " + newLevel.ToString();
+    }
 
     private void PlayerHealthChanged(object sender, int newHealth)
     {
         HealthText.text = newHealth.ToString() + " HP";
-    }
-
-    private void CompassChanged(object sender, string newHeading)
-    {
-        CompassText.text = newHeading;
-    }
-
-    private void PlayerLocationChanged(object sender, Room newLocation)
-    {
-        CurrentLocationText.text = newLocation.ToString();
-        _game.Look(_game);
-    }
-
-    private void PlayerCityChanged(object sender, string newCity)
-    {
-        CurrentCityText.text = newCity.ToString();
-    }
-
-    private void PlayerNameChanged(object sender, string newName)
-    {
-        CharacterNameText.text = newName.ToString();
     }
 
     private void PlayerTakeDamage(object sender, int amount)

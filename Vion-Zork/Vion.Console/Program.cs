@@ -13,8 +13,8 @@ namespace Vion
 
         static void Main(string[] args)
         {
-            const string defaultRoomsFilename = "Zork.Json";
-            string gameFilename = (args.Length > 0 ? args[(int)CommandLineArguments.GameFilename] : defaultRoomsFilename);
+            const string defaultLocationsFilename = "Zork.Json";
+            string gameFilename = (args.Length > 0 ? args[(int)CommandLineArguments.GameFilename] : defaultLocationsFilename);
 
             game = Game.Load(File.ReadAllText(gameFilename));
 
@@ -51,14 +51,14 @@ namespace Vion
                 }
             }
 
-            Room previousRoom = null;
+            Location previousLocation = null;
             while (game.IsRunning)
             {
                 output.WriteLine(game.Player.Location.Name);
-                if (previousRoom != game.Player.Location)
+                if (previousLocation != game.Player.Location)
                 {
                     game.Look(game);
-                    previousRoom = game.Player.Location;
+                    previousLocation = game.Player.Location;
                 }
 
                 output.Write("\n> ");

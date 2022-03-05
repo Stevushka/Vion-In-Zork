@@ -36,14 +36,14 @@ namespace Vion_Builder
                 {
                     StartingLocation = null,
                     WelcomeMessage = "Welcome to Zork!",
-                    Rooms = new List<Room>(),
+                    Locations = new List<Location>(),
                 },
             };
 
-            StoredRoot.World.Rooms.Add(new Room()
+            StoredRoot.World.Locations.Add(new Location()
             {
-                Name = "Default Room",
-                Description = "Default Room Description",
+                Name = "Default Location",
+                Description = "Default Location Description",
                 Neighbors = new Neighbors()
                 {
                     North = null,
@@ -55,14 +55,14 @@ namespace Vion_Builder
 
             ResetWorldLists();
 
-            StartingLocationDropBox.Text = StoredRoot.World.StartingLocation = StoredRoot.World.Rooms[0].Name;
+            StartingLocationDropBox.Text = StoredRoot.World.StartingLocation = StoredRoot.World.Locations[0].Name;
 
             WelcomeMessageTextBox.Text = StoredRoot.World.WelcomeMessage;
 
             //Clear the Form
-            ClearRoomForm();
+            ClearLocationForm();
 
-            EnableSaveFileOptionsAndRoomButtons();
+            EnableSaveFileOptionsAndLocationButtons();
         }
 
         private void Open_File(object sender, EventArgs e)
@@ -101,9 +101,9 @@ namespace Vion_Builder
             WelcomeMessageTextBox.Text = StoredRoot.World.WelcomeMessage;
 
             //Clear the Form
-            ClearRoomForm();
+            ClearLocationForm();
 
-            EnableSaveFileOptionsAndRoomButtons();
+            EnableSaveFileOptionsAndLocationButtons();
         }
 
         private void Save_File(object sender, EventArgs e)
@@ -156,63 +156,63 @@ namespace Vion_Builder
             StoredRoot.World.StartingLocation = StartingLocationDropBox.Text;
         }
 
-        private void RoomsListBox_SelectedValueChanged(object sender, EventArgs e)
+        private void LocationsListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             try
             {
                 //Name and Description
-                RoomNameTextBox.Text = (RoomsListBox.SelectedItem as Room).Name;
-                RoomDescriptionTextBox.Text = (RoomsListBox.SelectedItem as Room).Description;
+                LocationNameTextBox.Text = (LocationsListBox.SelectedItem as Location).Name;
+                LocationDescriptionTextBox.Text = (LocationsListBox.SelectedItem as Location).Description;
 
-                UpdateNeighborDropDownBoxes((RoomsListBox.SelectedItem as Room).Neighbors.North,
-                                            (RoomsListBox.SelectedItem as Room).Neighbors.South,
-                                            (RoomsListBox.SelectedItem as Room).Neighbors.West,
-                                            (RoomsListBox.SelectedItem as Room).Neighbors.East);
+                UpdateNeighborDropDownBoxes((LocationsListBox.SelectedItem as Location).Neighbors.North,
+                                            (LocationsListBox.SelectedItem as Location).Neighbors.South,
+                                            (LocationsListBox.SelectedItem as Location).Neighbors.West,
+                                            (LocationsListBox.SelectedItem as Location).Neighbors.East);
             }
 
             catch { }
         }
 
-        private void RoomUpdateButton_Click(object sender, EventArgs e)
+        private void LocationUpdateButton_Click(object sender, EventArgs e)
         {
-            if (RoomsListBox.SelectedItem != null)
+            if (LocationsListBox.SelectedItem != null)
             {
                 try
                 {
-                    int index = RoomsListBox.SelectedIndex;
+                    int index = LocationsListBox.SelectedIndex;
 
-                    string oldName = StoredRoot.World.Rooms[index].Name;
+                    string oldName = StoredRoot.World.Locations[index].Name;
 
-                    StoredRoot.World.Rooms[index].Name = RoomNameTextBox.Text;
-                    StoredRoot.World.Rooms[index].Description = RoomDescriptionTextBox.Text;
+                    StoredRoot.World.Locations[index].Name = LocationNameTextBox.Text;
+                    StoredRoot.World.Locations[index].Description = LocationDescriptionTextBox.Text;
 
-                    StoredRoot.World.Rooms[index].Neighbors.North = NeighborNorthDropBox.Text;
-                    StoredRoot.World.Rooms[index].Neighbors.South = NeighborSouthDropBox.Text;
-                    StoredRoot.World.Rooms[index].Neighbors.West = NeighborWestDropBox.Text;
-                    StoredRoot.World.Rooms[index].Neighbors.East = NeighborEastDropBox.Text;
+                    StoredRoot.World.Locations[index].Neighbors.North = NeighborNorthDropBox.Text;
+                    StoredRoot.World.Locations[index].Neighbors.South = NeighborSouthDropBox.Text;
+                    StoredRoot.World.Locations[index].Neighbors.West = NeighborWestDropBox.Text;
+                    StoredRoot.World.Locations[index].Neighbors.East = NeighborEastDropBox.Text;
 
-                    RoomsListBox.Items.RemoveAt(index);
-                    RoomsListBox.Items.Insert(index, StoredRoot.World.Rooms[index]);
+                    LocationsListBox.Items.RemoveAt(index);
+                    LocationsListBox.Items.Insert(index, StoredRoot.World.Locations[index]);
 
                     StartingLocationDropBox.Items.RemoveAt(index);
-                    StartingLocationDropBox.Items.Insert(index, StoredRoot.World.Rooms[index]);
+                    StartingLocationDropBox.Items.Insert(index, StoredRoot.World.Locations[index]);
                     StartingLocationDropBox.Text = StoredRoot.World.StartingLocation;
 
-                    UpdateNeighborsByName(oldName, StoredRoot.World.Rooms[index].Name);
+                    UpdateNeighborsByName(oldName, StoredRoot.World.Locations[index].Name);
 
-                    ClearRoomForm();
+                    ClearLocationForm();
                 }
 
                 catch { }
             }
         }
 
-        private void RoomAddButton_Click(object sender, EventArgs e)
+        private void LocationAddButton_Click(object sender, EventArgs e)
         {
-            StoredRoot.World.Rooms.Add(new Room()
+            StoredRoot.World.Locations.Add(new Location()
             {
-                Name = "New Room",
-                Description = "New Room Description",
+                Name = "New Location",
+                Description = "New Location Description",
                 Neighbors = new Neighbors()
                 {
                     North = null,
@@ -222,50 +222,50 @@ namespace Vion_Builder
                 },
             });
 
-            RoomsListBox.Items.Add(StoredRoot.World.Rooms[StoredRoot.World.Rooms.Count - 1]);
-            StartingLocationDropBox.Items.Add(StoredRoot.World.Rooms[StoredRoot.World.Rooms.Count - 1]);
+            LocationsListBox.Items.Add(StoredRoot.World.Locations[StoredRoot.World.Locations.Count - 1]);
+            StartingLocationDropBox.Items.Add(StoredRoot.World.Locations[StoredRoot.World.Locations.Count - 1]);
         }
 
-        private void RoomRemoveButton_Click(object sender, EventArgs e)
+        private void LocationRemoveButton_Click(object sender, EventArgs e)
         {
-            if (RoomsListBox.SelectedItem != null)
+            if (LocationsListBox.SelectedItem != null)
             {
                 try
                 {
-                    int index = RoomsListBox.SelectedIndex;
+                    int index = LocationsListBox.SelectedIndex;
 
-                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove this room?", "Remove Room", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show("Are you sure you want to remove this location?", "Remove Location", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        //Find and remove all links to current room
-                        PurgeNeighborsByName((RoomsListBox.SelectedItem as Room).Name);
+                        //Find and remove all links to current location
+                        PurgeNeighborsByName((LocationsListBox.SelectedItem as Location).Name);
 
                         //Clear the Form
-                        ClearRoomForm();
+                        ClearLocationForm();
 
                         //Update Lists
-                        StoredRoot.World.Rooms.RemoveAt(index);
-                        RoomsListBox.Items.RemoveAt(index);
+                        StoredRoot.World.Locations.RemoveAt(index);
+                        LocationsListBox.Items.RemoveAt(index);
                         StartingLocationDropBox.Items.RemoveAt(index);
-                        MessageBox.Show("Room Removed!");
+                        MessageBox.Show("Location Removed!");
                     }
 
                     else if (dialogResult == DialogResult.No)
                     {
-                        MessageBox.Show("Room Unchanged!");
+                        MessageBox.Show("Location Unchanged!");
                     }
                 }
 
                 catch
                 {
-                    MessageBox.Show("No room selected!");
+                    MessageBox.Show("No location selected!");
                 }
             }
         }
 
-        private List<Room> GetRoomsList()
+        private List<Location> GetLocationsList()
         {
-            return StoredRoot.World.Rooms;
+            return StoredRoot.World.Locations;
         }
 
         private void PurgeNeighborsByName(string name)
@@ -276,19 +276,19 @@ namespace Vion_Builder
                 StartingLocationDropBox.Text = null;
             }
 
-            foreach (Room room in GetRoomsList())
+            foreach (Location location in GetLocationsList())
             {
-                if (room.Neighbors.North == name)
-                    room.Neighbors.North = null;
+                if (location.Neighbors.North == name)
+                    location.Neighbors.North = null;
 
-                if (room.Neighbors.South == name)
-                    room.Neighbors.South = null;
+                if (location.Neighbors.South == name)
+                    location.Neighbors.South = null;
 
-                if (room.Neighbors.West == name)
-                    room.Neighbors.West = null;
+                if (location.Neighbors.West == name)
+                    location.Neighbors.West = null;
 
-                if (room.Neighbors.East == name)
-                    room.Neighbors.East = null;
+                if (location.Neighbors.East == name)
+                    location.Neighbors.East = null;
             }
         }
 
@@ -302,43 +302,43 @@ namespace Vion_Builder
                     StartingLocationDropBox.Text = newName;
                 }
 
-                foreach (Room room in GetRoomsList())
+                foreach (Location location in GetLocationsList())
                 {
-                    if (room.Neighbors.North == oldName)
-                        room.Neighbors.North = newName;
+                    if (location.Neighbors.North == oldName)
+                        location.Neighbors.North = newName;
 
-                    if (room.Neighbors.South == oldName)
-                        room.Neighbors.South = newName;
+                    if (location.Neighbors.South == oldName)
+                        location.Neighbors.South = newName;
 
-                    if (room.Neighbors.West == oldName)
-                        room.Neighbors.West = newName;
+                    if (location.Neighbors.West == oldName)
+                        location.Neighbors.West = newName;
 
-                    if (room.Neighbors.East == oldName)
-                        room.Neighbors.East = newName;
+                    if (location.Neighbors.East == oldName)
+                        location.Neighbors.East = newName;
                 }
             }
         }
 
         private void ResetWorldLists()
         {
-            RoomsListBox.Items.Clear();
+            LocationsListBox.Items.Clear();
             StartingLocationDropBox.Items.Clear();
 
-            foreach (Room room in GetRoomsList())
+            foreach (Location location in GetLocationsList())
             {
-                RoomsListBox.Items.Add(room);
-                StartingLocationDropBox.Items.Add(room);
+                LocationsListBox.Items.Add(location);
+                StartingLocationDropBox.Items.Add(location);
             }
 
-            RoomsListBox.DisplayMember = "Name";
+            LocationsListBox.DisplayMember = "Name";
             StartingLocationDropBox.DisplayMember = "Name";
         }
 
-        private void ClearRoomForm()
+        private void ClearLocationForm()
         {
-            //Clear Room Text
-            RoomNameTextBox.Text = null;
-            RoomDescriptionTextBox.Text = null;
+            //Clear Location Text
+            LocationNameTextBox.Text = null;
+            LocationDescriptionTextBox.Text = null;
 
             //Clear North Neighbor DropBox
             NeighborNorthDropBox.Text = null;
@@ -361,57 +361,57 @@ namespace Vion_Builder
         {
             //North Neighbor
             NeighborNorthDropBox.Items.Clear();
-            NeighborNorthDropBox.Text = (RoomsListBox.SelectedItem as Room).Neighbors.North;
-            foreach (Room room in GetRoomsList())
+            NeighborNorthDropBox.Text = (LocationsListBox.SelectedItem as Location).Neighbors.North;
+            foreach (Location room in GetLocationsList())
             {
-                if (room.Name != (RoomsListBox.SelectedItem as Room).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
+                if (room.Name != (LocationsListBox.SelectedItem as Location).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
                     NeighborNorthDropBox.Items.Add(room);
             }
             NeighborNorthDropBox.DisplayMember = "Name";
 
             //South Neighbor
             NeighborSouthDropBox.Items.Clear();
-            NeighborSouthDropBox.Text = (RoomsListBox.SelectedItem as Room).Neighbors.South;
-            foreach (Room room in GetRoomsList())
+            NeighborSouthDropBox.Text = (LocationsListBox.SelectedItem as Location).Neighbors.South;
+            foreach (Location room in GetLocationsList())
             {
-                if (room.Name != (RoomsListBox.SelectedItem as Room).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
+                if (room.Name != (LocationsListBox.SelectedItem as Location).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
                     NeighborSouthDropBox.Items.Add(room);
             }
             NeighborSouthDropBox.DisplayMember = "Name";
 
             //West Neighbor
             NeighborWestDropBox.Items.Clear();
-            NeighborWestDropBox.Text = (RoomsListBox.SelectedItem as Room).Neighbors.West;
-            foreach (Room room in GetRoomsList())
+            NeighborWestDropBox.Text = (LocationsListBox.SelectedItem as Location).Neighbors.West;
+            foreach (Location room in GetLocationsList())
             {
-                if (room.Name != (RoomsListBox.SelectedItem as Room).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
+                if (room.Name != (LocationsListBox.SelectedItem as Location).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
                     NeighborWestDropBox.Items.Add(room);
             }
             NeighborWestDropBox.DisplayMember = "Name";
 
             //East Neighbor
             NeighborEastDropBox.Items.Clear();
-            NeighborEastDropBox.Text = (RoomsListBox.SelectedItem as Room).Neighbors.East;
-            foreach (Room room in GetRoomsList())
+            NeighborEastDropBox.Text = (LocationsListBox.SelectedItem as Location).Neighbors.East;
+            foreach (Location room in GetLocationsList())
             {
-                if (room.Name != (RoomsListBox.SelectedItem as Room).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
+                if (room.Name != (LocationsListBox.SelectedItem as Location).Name && room.Name != north && room.Name != south && room.Name != west && room.Name != east)
                     NeighborEastDropBox.Items.Add(room);
             }
             NeighborEastDropBox.DisplayMember = "Name";
         }
 
-        private void EnableSaveFileOptionsAndRoomButtons()
+        private void EnableSaveFileOptionsAndLocationButtons()
         {
             MenuFileSaveOption.Enabled = true;
             MenuFileSaveAsOption.Enabled = true;
 
-            RoomAddButton.Enabled = true;
-            RoomRemoveButton.Enabled = true;
-            RoomUpdateButton.Enabled = true;
+            LocationAddButton.Enabled = true;
+            LocationRemoveButton.Enabled = true;
+            LocationUpdateButton.Enabled = true;
 
             StartingLocationDropBox.Enabled = true;
-            RoomNameTextBox.Enabled = true;
-            RoomDescriptionTextBox.Enabled = true;
+            LocationNameTextBox.Enabled = true;
+            LocationDescriptionTextBox.Enabled = true;
 
             NeighborNorthDropBox.Enabled = true;
             NeighborWestDropBox.Enabled = true;

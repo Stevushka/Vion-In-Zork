@@ -7,27 +7,27 @@ namespace Vion
 {
     public class World
     {
-        public HashSet<Room> Rooms { get; set; }
+        public HashSet<Location> Locations { get; set; }
 
         [JsonIgnore]
-        public Dictionary<string, Room> RoomsByName => new Dictionary<string, Room>(mRoomsByName);
+        public Dictionary<string, Location> LocationsByName => new Dictionary<string, Location>(mLocationsByName);
 
         public Player SpawnPlayer() => new Player(this, StartingLocation);
 
         [OnDeserialized]
         private void OnDeserialized(StreamingContext context)
         {
-            mRoomsByName = Rooms.ToDictionary(room => room.Name, room => room);
+            mLocationsByName = Locations.ToDictionary(location => location.Name, location => location);
 
-            foreach(Room room in Rooms)
+            foreach(Location location in Locations)
             {
-                room.UpdateNeighbors(this);
+                location.UpdateNeighbors(this);
             }
         }
 
         [JsonProperty]
         private string StartingLocation { get; set; }
 
-        private Dictionary<string, Room> mRoomsByName;
+        private Dictionary<string, Location> mLocationsByName;
     }
 }

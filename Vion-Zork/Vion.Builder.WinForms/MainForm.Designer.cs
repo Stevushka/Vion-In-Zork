@@ -43,15 +43,15 @@ namespace Vion_Builder
             this.MenuFileSaveAsOption = new System.Windows.Forms.MenuItem();
             this.GameTab = new System.Windows.Forms.TabPage();
             this.WorldTab = new System.Windows.Forms.TabPage();
-            this.RoomsGroupBox = new System.Windows.Forms.GroupBox();
-            this.RoomUpdateButton = new System.Windows.Forms.Button();
-            this.RoomsListBox = new System.Windows.Forms.ListBox();
-            this.RoomAddButton = new System.Windows.Forms.Button();
-            this.RoomRemoveButton = new System.Windows.Forms.Button();
-            this.RoomDescriptionTextBox = new System.Windows.Forms.TextBox();
-            this.RoomNameTextBox = new System.Windows.Forms.TextBox();
-            this.RoomDescriptionLabel = new System.Windows.Forms.Label();
-            this.RoomNameLabel = new System.Windows.Forms.Label();
+            this.LocationsGroupBox = new System.Windows.Forms.GroupBox();
+            this.LocationUpdateButton = new System.Windows.Forms.Button();
+            this.LocationsListBox = new System.Windows.Forms.ListBox();
+            this.LocationAddButton = new System.Windows.Forms.Button();
+            this.LocationRemoveButton = new System.Windows.Forms.Button();
+            this.LocationDescriptionTextBox = new System.Windows.Forms.TextBox();
+            this.LocationNameTextBox = new System.Windows.Forms.TextBox();
+            this.LocationDescriptionLabel = new System.Windows.Forms.Label();
+            this.LocationNameLabel = new System.Windows.Forms.Label();
             this.NeighborsGroupBox = new System.Windows.Forms.GroupBox();
             this.NeighborSouthDropBox = new System.Windows.Forms.ComboBox();
             this.NeighborWestDropBox = new System.Windows.Forms.ComboBox();
@@ -70,7 +70,7 @@ namespace Vion_Builder
             this.WelcomeMessageContainer.SuspendLayout();
             this.GameTab.SuspendLayout();
             this.WorldTab.SuspendLayout();
-            this.RoomsGroupBox.SuspendLayout();
+            this.LocationsGroupBox.SuspendLayout();
             this.NeighborsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.defaultBindingSource)).BeginInit();
             this.TabControl.SuspendLayout();
@@ -184,11 +184,11 @@ namespace Vion_Builder
             // 
             // WorldTab
             // 
-            this.WorldTab.Controls.Add(this.RoomsGroupBox);
-            this.WorldTab.Controls.Add(this.RoomDescriptionTextBox);
-            this.WorldTab.Controls.Add(this.RoomNameTextBox);
-            this.WorldTab.Controls.Add(this.RoomDescriptionLabel);
-            this.WorldTab.Controls.Add(this.RoomNameLabel);
+            this.WorldTab.Controls.Add(this.LocationsGroupBox);
+            this.WorldTab.Controls.Add(this.LocationDescriptionTextBox);
+            this.WorldTab.Controls.Add(this.LocationNameTextBox);
+            this.WorldTab.Controls.Add(this.LocationDescriptionLabel);
+            this.WorldTab.Controls.Add(this.LocationNameLabel);
             this.WorldTab.Controls.Add(this.NeighborsGroupBox);
             this.WorldTab.Controls.Add(this.StartingLocationDropBox);
             this.WorldTab.Controls.Add(this.StartingLocationLabel);
@@ -200,95 +200,95 @@ namespace Vion_Builder
             this.WorldTab.Text = "World";
             this.WorldTab.UseVisualStyleBackColor = true;
             // 
-            // RoomsGroupBox
+            // LocationsGroupBox
             // 
-            this.RoomsGroupBox.Controls.Add(this.RoomUpdateButton);
-            this.RoomsGroupBox.Controls.Add(this.RoomsListBox);
-            this.RoomsGroupBox.Controls.Add(this.RoomAddButton);
-            this.RoomsGroupBox.Controls.Add(this.RoomRemoveButton);
-            this.RoomsGroupBox.Location = new System.Drawing.Point(6, 56);
-            this.RoomsGroupBox.Name = "RoomsGroupBox";
-            this.RoomsGroupBox.Size = new System.Drawing.Size(204, 291);
-            this.RoomsGroupBox.TabIndex = 2;
-            this.RoomsGroupBox.TabStop = false;
-            this.RoomsGroupBox.Text = "Rooms";
+            this.LocationsGroupBox.Controls.Add(this.LocationUpdateButton);
+            this.LocationsGroupBox.Controls.Add(this.LocationsListBox);
+            this.LocationsGroupBox.Controls.Add(this.LocationAddButton);
+            this.LocationsGroupBox.Controls.Add(this.LocationRemoveButton);
+            this.LocationsGroupBox.Location = new System.Drawing.Point(6, 56);
+            this.LocationsGroupBox.Name = "LocationsGroupBox";
+            this.LocationsGroupBox.Size = new System.Drawing.Size(204, 291);
+            this.LocationsGroupBox.TabIndex = 2;
+            this.LocationsGroupBox.TabStop = false;
+            this.LocationsGroupBox.Text = "Rooms";
             // 
-            // RoomUpdateButton
+            // LocationUpdateButton
             // 
-            this.RoomUpdateButton.Enabled = false;
-            this.RoomUpdateButton.Location = new System.Drawing.Point(138, 260);
-            this.RoomUpdateButton.Name = "RoomUpdateButton";
-            this.RoomUpdateButton.Size = new System.Drawing.Size(60, 25);
-            this.RoomUpdateButton.TabIndex = 5;
-            this.RoomUpdateButton.Text = "Update";
-            this.RoomUpdateButton.UseVisualStyleBackColor = true;
-            this.RoomUpdateButton.Click += new System.EventHandler(this.RoomUpdateButton_Click);
+            this.LocationUpdateButton.Enabled = false;
+            this.LocationUpdateButton.Location = new System.Drawing.Point(138, 260);
+            this.LocationUpdateButton.Name = "LocationUpdateButton";
+            this.LocationUpdateButton.Size = new System.Drawing.Size(60, 25);
+            this.LocationUpdateButton.TabIndex = 5;
+            this.LocationUpdateButton.Text = "Update";
+            this.LocationUpdateButton.UseVisualStyleBackColor = true;
+            this.LocationUpdateButton.Click += new System.EventHandler(this.LocationUpdateButton_Click);
             // 
-            // RoomsListBox
+            // LocationsListBox
             // 
-            this.RoomsListBox.FormattingEnabled = true;
-            this.RoomsListBox.Location = new System.Drawing.Point(5, 19);
-            this.RoomsListBox.Name = "RoomsListBox";
-            this.RoomsListBox.Size = new System.Drawing.Size(193, 225);
-            this.RoomsListBox.TabIndex = 2;
-            this.RoomsListBox.SelectedValueChanged += new System.EventHandler(this.RoomsListBox_SelectedValueChanged);
+            this.LocationsListBox.FormattingEnabled = true;
+            this.LocationsListBox.Location = new System.Drawing.Point(5, 19);
+            this.LocationsListBox.Name = "LocationsListBox";
+            this.LocationsListBox.Size = new System.Drawing.Size(193, 225);
+            this.LocationsListBox.TabIndex = 2;
+            this.LocationsListBox.SelectedValueChanged += new System.EventHandler(this.LocationsListBox_SelectedValueChanged);
             // 
-            // RoomAddButton
+            // LocationAddButton
             // 
-            this.RoomAddButton.Enabled = false;
-            this.RoomAddButton.Location = new System.Drawing.Point(6, 260);
-            this.RoomAddButton.Name = "RoomAddButton";
-            this.RoomAddButton.Size = new System.Drawing.Size(60, 25);
-            this.RoomAddButton.TabIndex = 3;
-            this.RoomAddButton.Text = "Add";
-            this.RoomAddButton.UseVisualStyleBackColor = true;
-            this.RoomAddButton.Click += new System.EventHandler(this.RoomAddButton_Click);
+            this.LocationAddButton.Enabled = false;
+            this.LocationAddButton.Location = new System.Drawing.Point(6, 260);
+            this.LocationAddButton.Name = "LocationAddButton";
+            this.LocationAddButton.Size = new System.Drawing.Size(60, 25);
+            this.LocationAddButton.TabIndex = 3;
+            this.LocationAddButton.Text = "Add";
+            this.LocationAddButton.UseVisualStyleBackColor = true;
+            this.LocationAddButton.Click += new System.EventHandler(this.LocationAddButton_Click);
             // 
-            // RoomRemoveButton
+            // LocationRemoveButton
             // 
-            this.RoomRemoveButton.Enabled = false;
-            this.RoomRemoveButton.Location = new System.Drawing.Point(72, 260);
-            this.RoomRemoveButton.Name = "RoomRemoveButton";
-            this.RoomRemoveButton.Size = new System.Drawing.Size(60, 25);
-            this.RoomRemoveButton.TabIndex = 4;
-            this.RoomRemoveButton.Text = "Remove";
-            this.RoomRemoveButton.UseVisualStyleBackColor = true;
-            this.RoomRemoveButton.Click += new System.EventHandler(this.RoomRemoveButton_Click);
+            this.LocationRemoveButton.Enabled = false;
+            this.LocationRemoveButton.Location = new System.Drawing.Point(72, 260);
+            this.LocationRemoveButton.Name = "LocationRemoveButton";
+            this.LocationRemoveButton.Size = new System.Drawing.Size(60, 25);
+            this.LocationRemoveButton.TabIndex = 4;
+            this.LocationRemoveButton.Text = "Remove";
+            this.LocationRemoveButton.UseVisualStyleBackColor = true;
+            this.LocationRemoveButton.Click += new System.EventHandler(this.LocationRemoveButton_Click);
             // 
-            // RoomDescriptionTextBox
+            // LocationDescriptionTextBox
             // 
-            this.RoomDescriptionTextBox.Enabled = false;
-            this.RoomDescriptionTextBox.Location = new System.Drawing.Point(230, 72);
-            this.RoomDescriptionTextBox.Multiline = true;
-            this.RoomDescriptionTextBox.Name = "RoomDescriptionTextBox";
-            this.RoomDescriptionTextBox.Size = new System.Drawing.Size(300, 100);
-            this.RoomDescriptionTextBox.TabIndex = 7;
+            this.LocationDescriptionTextBox.Enabled = false;
+            this.LocationDescriptionTextBox.Location = new System.Drawing.Point(230, 72);
+            this.LocationDescriptionTextBox.Multiline = true;
+            this.LocationDescriptionTextBox.Name = "LocationDescriptionTextBox";
+            this.LocationDescriptionTextBox.Size = new System.Drawing.Size(300, 100);
+            this.LocationDescriptionTextBox.TabIndex = 7;
             // 
-            // RoomNameTextBox
+            // LocationNameTextBox
             // 
-            this.RoomNameTextBox.Enabled = false;
-            this.RoomNameTextBox.Location = new System.Drawing.Point(230, 25);
-            this.RoomNameTextBox.Name = "RoomNameTextBox";
-            this.RoomNameTextBox.Size = new System.Drawing.Size(300, 20);
-            this.RoomNameTextBox.TabIndex = 6;
+            this.LocationNameTextBox.Enabled = false;
+            this.LocationNameTextBox.Location = new System.Drawing.Point(230, 25);
+            this.LocationNameTextBox.Name = "LocationNameTextBox";
+            this.LocationNameTextBox.Size = new System.Drawing.Size(300, 20);
+            this.LocationNameTextBox.TabIndex = 6;
             // 
-            // RoomDescriptionLabel
+            // LocationDescriptionLabel
             // 
-            this.RoomDescriptionLabel.AutoSize = true;
-            this.RoomDescriptionLabel.Location = new System.Drawing.Point(227, 56);
-            this.RoomDescriptionLabel.Name = "RoomDescriptionLabel";
-            this.RoomDescriptionLabel.Size = new System.Drawing.Size(91, 13);
-            this.RoomDescriptionLabel.TabIndex = 10;
-            this.RoomDescriptionLabel.Text = "Room Description";
+            this.LocationDescriptionLabel.AutoSize = true;
+            this.LocationDescriptionLabel.Location = new System.Drawing.Point(227, 56);
+            this.LocationDescriptionLabel.Name = "LocationDescriptionLabel";
+            this.LocationDescriptionLabel.Size = new System.Drawing.Size(91, 13);
+            this.LocationDescriptionLabel.TabIndex = 10;
+            this.LocationDescriptionLabel.Text = "Room Description";
             // 
-            // RoomNameLabel
+            // LocationNameLabel
             // 
-            this.RoomNameLabel.AutoSize = true;
-            this.RoomNameLabel.Location = new System.Drawing.Point(227, 8);
-            this.RoomNameLabel.Name = "RoomNameLabel";
-            this.RoomNameLabel.Size = new System.Drawing.Size(66, 13);
-            this.RoomNameLabel.TabIndex = 8;
-            this.RoomNameLabel.Text = "Room Name";
+            this.LocationNameLabel.AutoSize = true;
+            this.LocationNameLabel.Location = new System.Drawing.Point(227, 8);
+            this.LocationNameLabel.Name = "LocationNameLabel";
+            this.LocationNameLabel.Size = new System.Drawing.Size(66, 13);
+            this.LocationNameLabel.TabIndex = 8;
+            this.LocationNameLabel.Text = "Room Name";
             // 
             // NeighborsGroupBox
             // 
@@ -458,7 +458,7 @@ namespace Vion_Builder
             this.GameTab.ResumeLayout(false);
             this.WorldTab.ResumeLayout(false);
             this.WorldTab.PerformLayout();
-            this.RoomsGroupBox.ResumeLayout(false);
+            this.LocationsGroupBox.ResumeLayout(false);
             this.NeighborsGroupBox.ResumeLayout(false);
             this.NeighborsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.defaultBindingSource)).EndInit();
@@ -485,12 +485,12 @@ namespace Vion_Builder
         private System.Windows.Forms.TabPage GameTab;
         private System.Windows.Forms.TextBox WelcomeMessageTextBox;
         private System.Windows.Forms.TabPage WorldTab;
-        private System.Windows.Forms.TextBox RoomDescriptionTextBox;
-        private System.Windows.Forms.TextBox RoomNameTextBox;
-        private System.Windows.Forms.Label RoomDescriptionLabel;
-        private System.Windows.Forms.Label RoomNameLabel;
-        private System.Windows.Forms.Button RoomRemoveButton;
-        private System.Windows.Forms.Button RoomAddButton;
+        private System.Windows.Forms.TextBox LocationDescriptionTextBox;
+        private System.Windows.Forms.TextBox LocationNameTextBox;
+        private System.Windows.Forms.Label LocationDescriptionLabel;
+        private System.Windows.Forms.Label LocationNameLabel;
+        private System.Windows.Forms.Button LocationRemoveButton;
+        private System.Windows.Forms.Button LocationAddButton;
         private System.Windows.Forms.GroupBox NeighborsGroupBox;
         private System.Windows.Forms.ComboBox NeighborSouthDropBox;
         private System.Windows.Forms.ComboBox NeighborWestDropBox;
@@ -499,15 +499,15 @@ namespace Vion_Builder
         private System.Windows.Forms.Label NeighborWestLabel;
         private System.Windows.Forms.Label NeighborEastLabel;
         private System.Windows.Forms.Label NeighborNorthLabel;
-        private System.Windows.Forms.ListBox RoomsListBox;
+        private System.Windows.Forms.ListBox LocationsListBox;
         private System.Windows.Forms.ComboBox StartingLocationDropBox;
         private System.Windows.Forms.Label StartingLocationLabel;
         private System.Windows.Forms.TabControl TabControl;
-        private System.Windows.Forms.GroupBox RoomsGroupBox;
+        private System.Windows.Forms.GroupBox LocationsGroupBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.BindingSource defaultBindingSource;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.Button RoomUpdateButton;
+        private System.Windows.Forms.Button LocationUpdateButton;
         private System.Windows.Forms.ComboBox NeighborNorthDropBox;
         private System.Windows.Forms.Button MessageCancelButton;
         private System.Windows.Forms.Button MessageConfirmButton;

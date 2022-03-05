@@ -19,7 +19,7 @@ namespace Vion_Builder
         public string East { get; set; }
     }
 
-    public class Room
+    public class Location
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -30,7 +30,7 @@ namespace Vion_Builder
     {
         public string StartingLocation { get; set; }
         public string WelcomeMessage { get; set; }
-        public List<Room> Rooms { get; set; }
+        public List<Location> Locations { get; set; }
     }
 
     public class Root

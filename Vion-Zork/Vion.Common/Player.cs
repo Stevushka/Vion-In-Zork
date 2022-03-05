@@ -5,9 +5,9 @@ namespace Vion
 {
     public class Player
     {
-        public event EventHandler<string> CityChanged;
+        public event EventHandler<string> RegionChanged;
 
-        public event EventHandler<Room> LocationChanged;
+        public event EventHandler<Location> LocationChanged;
 
         public event EventHandler<string> NameChanged;
 
@@ -30,25 +30,7 @@ namespace Vion
         public World World { get; }
 
         [JsonIgnore]
-        public string City
-        {
-            get
-            {
-                return _city;
-            }
-
-            set
-            {
-                if (_city != value)
-                {
-                    _city = value;
-                    CityChanged?.Invoke(this, _city);
-                }
-            }
-        }
-
-        [JsonIgnore]
-        public Room Location
+        public Location Location
         { 
             get
             {
@@ -61,6 +43,26 @@ namespace Vion
                 {
                     _location = value;
                     LocationChanged?.Invoke(this, _location);
+
+                    Region = value.Region;
+                }
+            }
+        }
+
+        [JsonIgnore]
+        public string Region
+        {
+            get
+            {
+                return _region;
+            }
+
+            set
+            {
+                if (_region != value)
+                {
+                    _region = value;
+                    RegionChanged?.Invoke(this, _region);
                 }
             }
         }
@@ -233,7 +235,7 @@ namespace Vion
             }
             set
             {
-                Location = World?.RoomsByName.GetValueOrDefault(value);
+                Location = World?.LocationsByName.GetValueOrDefault(value);
             }
         }
 
@@ -256,7 +258,7 @@ namespace Vion
 
         public bool Move(Directions direction)
         {
-            bool isValidMove = Location.Neighbors.TryGetValue(direction, out Room destination);
+            bool isValidMove = Location.Neighbors.TryGetValue(direction, out Location destination);
             if(isValidMove)
             {
                 Location = destination;
@@ -265,8 +267,8 @@ namespace Vion
             return isValidMove;
         }
 
-        private string _city;
-        private Room _location;
+        private Location _location;
+        private string _region;
         private string _name;
         private Gender? _gender;
         private string _compass;
