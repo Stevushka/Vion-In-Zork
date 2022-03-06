@@ -11,7 +11,6 @@ namespace Vion
         public event EventHandler GameQuit;
         public event EventHandler GameInit;
 
-
         [JsonIgnore]
         public IOutputService Output { get; set; }
 
@@ -19,8 +18,6 @@ namespace Vion
         public IInputService Input { get; set; }
 
         public World World { get; private set; }
-
-        public string StartingLocation { get; set; }
 
         public string WelcomeMessage { get; set; }
 
@@ -31,16 +28,23 @@ namespace Vion
         public Player Player { get; private set; }
 
         [JsonIgnore]
-        public bool Init { get; set; }
+        private string[] CommandsThatIgnoreMoves = { "STATS", "HELP", "DEBUG" };
 
-        [JsonIgnore]
-        public bool ChoosingGender { get; set; }
+        #region Game States Variables
 
-        [JsonIgnore]
-        public bool ChoosingName { get; set; }
+            [JsonIgnore]
+            public bool Init { get; set; }
 
-        [JsonIgnore]
-        public bool IsRunning { get; set; }
+            [JsonIgnore]
+            public bool ChoosingGender { get; set; }
+
+            [JsonIgnore]
+            public bool ChoosingName { get; set; }
+
+            [JsonIgnore]
+            public bool IsRunning { get; set; }
+
+        #endregion
 
         [JsonIgnore]
         public Dictionary<string, Command> Commands { get; private set; }
@@ -52,150 +56,224 @@ namespace Vion
 
             Commands = new Dictionary<string, Command>()
             {
-                { "QUIT", new Command("QUIT", new string[] { "QUIT", "Q", "BYE" }, Quit) },
-                { "LOOK", new Command("LOOK", new string[] { "LOOK", "L" }, Look) },
-                { "NORTH", new Command("NORTH", new string[] { "NORTH", "N" }, game => Move(game, Directions.NORTH)) },
-                { "SOUTH", new Command("SOUTH", new string[] { "SOUTH", "S" }, game => Move(game, Directions.SOUTH)) },
-                { "EAST", new Command("EAST", new string[] { "EAST", "E"}, game => Move(game, Directions.EAST)) },
-                { "WEST", new Command("WEST", new string[] { "WEST", "W" }, game => Move(game, Directions.WEST)) },
-                { "DAMAGE", new Command("DAMAGE", new string[] { "DAMAGE", "HURT", "PAIN"}, Damage) },
+                { "DEBUG",  new Command("DEBUG",    new string[] { "DEBUG" },               "Syntax: 'Debug <Debug Command>'",          Debug) },
+                { "HELP",   new Command("HELP",     new string[] { "HELP"},                 "Syntax: 'Help'\nSyntax: 'Help <Command>'", Help) },
+                { "STATS",  new Command("STATS",    new string[] { "STATS", "STATISTICS"},  "Syntax: 'Stats'",                          Stats)},
+                { "LOOK",   new Command("LOOK",     new string[] { "LOOK", "L" },           "Syntax: 'Look'",                           Look) },
+                { "NORTH",  new Command("NORTH",    new string[] { "NORTH", "N" },          "Syntax: 'North'",                          game => Move(game, Directions.NORTH)) },
+                { "SOUTH",  new Command("SOUTH",    new string[] { "SOUTH", "S" },          "Syntax: 'South'",                          game => Move(game, Directions.SOUTH)) },
+                { "EAST",   new Command("EAST",     new string[] { "EAST", "E"},            "Syntax: 'East'",                           game => Move(game, Directions.EAST)) },
+                { "WEST",   new Command("WEST",     new string[] { "WEST", "W" },           "Syntax: 'West'",                           game => Move(game, Directions.WEST)) },
+                { "QUIT",   new Command("QUIT",     new string[] { "QUIT", "Q", "BYE" },    "Syntax: 'Quit'",                           Quit) },
             };
         }
 
-        private void Quit(Game game)
-        {
-            game.IsRunning = false;
-            GameQuit?.Invoke(this, null);
-        }
+        #region Commands
 
-        public void Look(Game game)
-        {
-            Output.WriteLine(game.Player.Location.Description);
-        }
-
-        public void Move(Game game, Directions direction)
-        {
-            if (game.Player.Move(direction) == false)
+            private void Debug(Game game, string[] args)
             {
-                Output.WriteLine("The way is shut!");
-            }
-        }
-
-        public void Damage(Game game)
-        {
-            Player.TakeDamage(this);
-        }
-
-        public void Start(IInputService input, IOutputService output)
-        {
-            Input = input;
-            Input.InputReceived += Input_StartInputReceived;
-
-            Output = output;
-
-            Init = true;
-            ChoosingGender = false;
-            ChoosingName = false;
-            IsRunning = false;
-        }
-
-        public void ChooseGender()
-        {
-            Input.InputReceived -= Input_StartInputReceived;
-            Input.InputReceived += Input_GenderInputReceived;
-
-            Init = false;
-            ChoosingGender = true;
-        }
-
-        public void ChooseName()
-        {
-            Input.InputReceived -= Input_GenderInputReceived;
-            Input.InputReceived += Input_NameInputReceived;
-
-            ChoosingGender = false;
-            ChoosingName = true;
-        }
-
-        public void Play()
-        {
-            Input.InputReceived -= Input_NameInputReceived;
-            Input.InputReceived += Input_InputReceived;
-
-            ChoosingName = false;
-            IsRunning = true;
-        }
-
-        private void Input_StartInputReceived(object sender, string commandString)
-        {
-            if (!string.IsNullOrWhiteSpace(commandString))
-            {
-                Output.WriteLine("Are You A Male Or Female?");
-                ChooseGender();
-            }
-        }
-
-        private void Input_GenderInputReceived(object sender, string commandString)
-        {
-            try
-            {
-                switch (Enum.Parse(typeof(Gender), commandString))
+                if (args[1].ToUpper() == "PRINT")
                 {
-                    case Gender.MALE:
-                        this.Player.PlayerGender = Gender.MALE;
-                        Output.WriteLine("What Is Your Name?");
-                        ChooseName();
-                        break;
+                    Output.WriteLine("Print!");
+                }
 
-                    case Gender.FEMALE:
-                        this.Player.PlayerGender = Gender.FEMALE;
-                        Output.WriteLine("What Is Your Name?");
-                        ChooseName();
-                        break;
+                if (args[1].ToUpper() == "DAMAGE")
+                {
+                    Player.TakeDamage(this);
                 }
             }
-            catch
+        
+            private void Help(Game game, string[] args)
             {
-                Output.WriteLine("Are You A Male Or Female?");
-            }
-        }
-
-        private void Input_NameInputReceived(object sender, string commandString)
-        {
-            if (!string.IsNullOrWhiteSpace(commandString))
-            {
-                this.Player.PlayerName = commandString;
-                GameInit?.Invoke(this, null);
-                Play();
-            }
-            else
-            {
-                Output.WriteLine("What Is Your Name?");
-            }
-        }
-
-        private void Input_InputReceived(object sender, string commandString)
-        {
-            Command foundCommand = null;
-            foreach(Command command in Commands.Values)
-            {
-                if(command.Verbs.Contains(commandString))
+                if(args.Length > 1)
                 {
-                    foundCommand = command;
-                    break;
+                    Command foundCommand = null;
+                    foreach (Command command in Commands.Values)
+                    {
+                        if (command.Verbs.Contains(args[1]))
+                        {
+                            foundCommand = command;
+                            break;
+                        }
+                    }
+
+                    if (foundCommand != null)
+                    {
+                        Output.WriteLine(foundCommand.HelpText);
+                    }
+                    else
+                    {
+                        Output.WriteLine("Help Can't find " + args[1] + ".");
+                    }
+                }
+                else
+                {
+                    string helpText = "";
+
+                    for (int i = 1; i < Commands.Count; i++)
+                    {
+                        helpText += ("\n" + Commands.Keys.ElementAt<string>(i));
+                    }
+
+                    Output.WriteLine("Commands: " + helpText);
                 }
             }
 
-            if (foundCommand != null)
+            private void Stats(Game game)
             {
-                foundCommand.Action(this);
-                Player.Moves++;
+                Output.WriteLine("Moves: " + Player.Moves);
             }
-            else
+
+            private void Quit(Game game)
             {
-                Output.WriteLine("Unknown command.");
+                game.IsRunning = false;
+                GameQuit?.Invoke(this, null);
             }
-        }
+
+            public void Look(Game game)
+            {
+                Output.WriteLine(game.Player.Location.Description);
+            }
+
+            public void Move(Game game, Directions direction)
+            {
+                if (game.Player.Move(direction) == false)
+                {
+                    Output.WriteLine("The way is shut!");
+                }
+            }
+
+        #endregion
+
+        #region Switch Game States
+
+            public void Start(IInputService input, IOutputService output)
+            {
+                Input = input;
+                Input.InputReceived += Input_StartInputReceived;
+
+                Output = output;
+
+                Init = true;
+                ChoosingGender = false;
+                ChoosingName = false;
+                IsRunning = false;
+            }
+
+            public void ChooseGender()
+            {
+                Input.InputReceived -= Input_StartInputReceived;
+                Input.InputReceived += Input_GenderInputReceived;
+
+                Init = false;
+                ChoosingGender = true;
+            }
+
+            public void ChooseName()
+            {
+                Input.InputReceived -= Input_GenderInputReceived;
+                Input.InputReceived += Input_NameInputReceived;
+
+                ChoosingGender = false;
+                ChoosingName = true;
+            }
+
+            public void Play()
+            {
+                Input.InputReceived -= Input_NameInputReceived;
+                Input.InputReceived += Input_InputReceived;
+
+                ChoosingName = false;
+                IsRunning = true;
+            }
+
+        #endregion
+
+        #region Input States
+
+            private void Input_StartInputReceived(object sender, string commandString)
+            {
+                if (!string.IsNullOrWhiteSpace(commandString))
+                {
+                    Output.WriteLine("Are You A Male Or Female?");
+                    ChooseGender();
+                }
+            }
+
+            private void Input_GenderInputReceived(object sender, string commandString)
+            {
+                try
+                {
+                    switch (Enum.Parse(typeof(Gender), commandString))
+                    {
+                        case Gender.MALE:
+                            this.Player.PlayerGender = Gender.MALE;
+                            Output.WriteLine("What Is Your Name?");
+                            ChooseName();
+                            break;
+
+                        case Gender.FEMALE:
+                            this.Player.PlayerGender = Gender.FEMALE;
+                            Output.WriteLine("What Is Your Name?");
+                            ChooseName();
+                            break;
+                    }
+                }
+                catch
+                {
+                    Output.WriteLine("Are You A Male Or Female?");
+                }
+            }
+
+            private void Input_NameInputReceived(object sender, string commandString)
+            {
+                if (!string.IsNullOrWhiteSpace(commandString))
+                {
+                    this.Player.PlayerName = commandString;
+                    GameInit?.Invoke(this, null);
+                    Play();
+                }
+                else
+                {
+                    Output.WriteLine("What Is Your Name?");
+                }
+            }
+
+            private void Input_InputReceived(object sender, string commandString)
+            {
+                string[] commandArray = commandString.Split();
+
+                Command foundCommand = null;
+                foreach(Command command in Commands.Values)
+                {
+                    if(command.Verbs.Contains(commandArray[0]))
+                    {
+                        foundCommand = command;
+                        break;
+                    }
+                }
+
+                if (foundCommand != null)
+                {
+                    if(foundCommand.Action != null)
+                    {
+                        foundCommand.Action(this);
+                    }
+                    else if(foundCommand.ComplexAction != null)
+                    {
+                        foundCommand.ComplexAction(this, commandArray);
+                    }
+                    
+                    if(!CommandsThatIgnoreMoves.Contains(foundCommand.Name))
+                        Player.Moves++;
+                }
+                else
+                {
+                    Output.WriteLine("Unknown command.");
+                }
+            }
+
+        #endregion
 
         public static Game Load(string filetext)
         {

@@ -12,15 +12,34 @@ namespace Vion
 
         public Action<Game> Action { get; set; }
 
-        public Command(string name, IEnumerable<string> verbs, Action<Game> action)
+        public Action<Game, string[]> ComplexAction { get; set; }
+
+        public string HelpText { get; set; }
+
+        public Command(string name, IEnumerable<string> verbs, string helpText, Action<Game> action)
         {
             Assert.IsNotNull(name);
             Assert.IsNotNull(verbs);
             Assert.IsNotNull(action);
+            Assert.IsNotNull(helpText);
 
             Name = name;
             Verbs = verbs.ToArray();
+            HelpText = helpText;
             Action = action;
+        }
+
+        public Command(string name, IEnumerable<string> verbs, string helpText, Action<Game, string[]> action)
+        {
+            Assert.IsNotNull(name);
+            Assert.IsNotNull(verbs);
+            Assert.IsNotNull(action);
+            Assert.IsNotNull(helpText);
+
+            Name = name;
+            Verbs = verbs.ToArray();
+            HelpText = helpText;
+            ComplexAction = action;
         }
 
         public override string ToString() => Name;
