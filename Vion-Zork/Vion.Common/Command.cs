@@ -12,7 +12,7 @@ namespace Vion
 
         public Action<Game> Action { get; set; }
 
-        public Action<Game, string[]> ComplexAction { get; set; }
+        public Action<Game, List<string>> ComplexAction { get; set; }
 
         public string HelpText { get; set; }
 
@@ -29,7 +29,7 @@ namespace Vion
             Action = action;
         }
 
-        public Command(string name, IEnumerable<string> verbs, string helpText, Action<Game, string[]> action)
+        public Command(string name, IEnumerable<string> verbs, string helpText, Action<Game, List<string>> action)
         {
             Assert.IsNotNull(name);
             Assert.IsNotNull(verbs);

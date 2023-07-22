@@ -56,21 +56,25 @@ namespace Vion
 
             Commands = new Dictionary<string, Command>()
             {
-                { "DEBUG",  new Command("DEBUG",    new string[] { "DEBUG" },               "Syntax: 'Debug <Debug Command>'",          Debug) },
-                { "HELP",   new Command("HELP",     new string[] { "HELP"},                 "Syntax: 'Help'\nSyntax: 'Help <Command>'", Help) },
-                { "STATS",  new Command("STATS",    new string[] { "STATS", "STATISTICS"},  "Syntax: 'Stats'",                          Stats)},
-                { "LOOK",   new Command("LOOK",     new string[] { "LOOK", "L" },           "Syntax: 'Look'",                           Look) },
-                { "NORTH",  new Command("NORTH",    new string[] { "NORTH", "N" },          "Syntax: 'North'",                          game => Move(game, Directions.NORTH)) },
-                { "SOUTH",  new Command("SOUTH",    new string[] { "SOUTH", "S" },          "Syntax: 'South'",                          game => Move(game, Directions.SOUTH)) },
-                { "EAST",   new Command("EAST",     new string[] { "EAST", "E"},            "Syntax: 'East'",                           game => Move(game, Directions.EAST)) },
-                { "WEST",   new Command("WEST",     new string[] { "WEST", "W" },           "Syntax: 'West'",                           game => Move(game, Directions.WEST)) },
-                { "QUIT",   new Command("QUIT",     new string[] { "QUIT", "Q", "BYE" },    "Syntax: 'Quit'",                           Quit) },
+                { "DEBUG",   new Command("DEBUG",    new string[] { "DEBUG" },               "Syntax: 'Debug <Debug Command>'",           Debug) },
+                { "HELP",    new Command("HELP",     new string[] { "HELP"},                 "Syntax: 'Help'\nSyntax: 'Help <Command>'",  Help) },
+                { "STATS",   new Command("STATS",    new string[] { "STATS", "STATISTICS"},  "Syntax: 'Stats'",                           Stats) },
+                { "LOOK",    new Command("LOOK",     new string[] { "LOOK", "L" },           "Syntax: 'Look'",                            Look) },
+                { "NORTH",   new Command("NORTH",    new string[] { "NORTH", "N" },          "Syntax: 'North'",                           game => Move(game, Directions.NORTH)) },
+                { "SOUTH",   new Command("SOUTH",    new string[] { "SOUTH", "S" },          "Syntax: 'South'",                           game => Move(game, Directions.SOUTH)) },
+                { "EAST",    new Command("EAST",     new string[] { "EAST", "E"},            "Syntax: 'East'",                            game => Move(game, Directions.EAST)) },
+                { "WEST",    new Command("WEST",     new string[] { "WEST", "W" },           "Syntax: 'West'",                            game => Move(game, Directions.WEST)) },
+                { "INSIDE",  new Command("INSIDE",   new string[] { "INSIDE", "I" },         "Syntax: 'Inside'",                          game => Move(game, Directions.INSIDE)) },
+                { "OUTSIDE", new Command("OUTSIDE",  new string[] { "OUTSIDE", "O" },        "Syntax: 'Outside'",                         game => Move(game, Directions.OUTSIDE)) },
+                { "ATTACK",  new Command("Attack",   new string[] { "ATTACK", "A" },         "Syntax: 'Attack <target>'\n" +
+                                                                                             "Syntax: 'Attack <target> with <weapon>'",   Attack) },
+                { "QUIT",    new Command("QUIT",     new string[] { "QUIT", "Q", "BYE" },    "Syntax: 'Quit'",                            Quit) },
             };
         }
 
         #region Commands
 
-            private void Debug(Game game, string[] args)
+            private void Debug(Game game, string[] args) //complex action
             {
                 if (args[1].ToUpper() == "PRINT")
                 {
@@ -83,7 +87,7 @@ namespace Vion
                 }
             }
         
-            private void Help(Game game, string[] args)
+            private void Help(Game game, string[] args) //complex action
             {
                 if(args.Length > 1)
                 {
@@ -103,7 +107,7 @@ namespace Vion
                     }
                     else
                     {
-                        Output.WriteLine("Help Can't find " + args[1] + ".");
+                        Output.WriteLine($"Help Can't find {args[1]}.");
                     }
                 }
                 else
@@ -112,35 +116,115 @@ namespace Vion
 
                     for (int i = 1; i < Commands.Count; i++)
                     {
-                        helpText += ("\n" + Commands.Keys.ElementAt<string>(i));
+                        helpText += ($"\n{Commands.Keys.ElementAt<string>(i)}");
                     }
 
                     Output.WriteLine("Commands: " + helpText);
                 }
             }
 
-            private void Stats(Game game)
+            private void Stats(Game game) //action
             {
                 Output.WriteLine("Moves: " + Player.Moves);
             }
 
-            private void Quit(Game game)
+            //TODO
+            private void Quit(Game game) //action
             {
                 game.IsRunning = false;
+
+                //Serialize parameter game to a save file or the default json file
+
                 GameQuit?.Invoke(this, null);
             }
 
-            public void Look(Game game)
+            public void Look(Game game) //action, adds to moves
             {
                 Output.WriteLine(game.Player.Location.Description);
             }
 
-            public void Move(Game game, Directions direction)
+            public void Move(Game game, Directions direction) //custom action, adds to moves
             {
                 if (game.Player.Move(direction) == false)
                 {
-                    Output.WriteLine("The way is shut!");
+                    Output.WriteLine("You can't go that way!");
                 }
+            }
+
+            //TODO
+            public void Attack(Game game, string[] args) //complex action, adds to moves
+            {
+                string target = "target";
+                string weapon = "";
+                bool found = false;
+
+                weapon = game.Player.EquippedWeapon.name;
+
+                Output.WriteLine($"You attack your {target} with {weapon}!");
+            }
+            
+            public void Equip(Game game, string[] args) //complex action, adds to moves
+            {
+                if (args.Count != 0)
+                    Output.WriteLine($"Equip {args[0]}!");
+                else
+                    return;
+
+                Item foundItem = game.Player.Inventory.FirstOrDefault(x => x.name == args[0]);
+                
+                if(foundItem != null)
+                {
+                    if(foundItem.itemType == ItemType.WEAPON)
+                    {
+                        game.Player.EquippedWeapon = foundItem;
+                    }
+                    else if (foundItem.itemType == ItemType.ARMOR)
+                    {
+                        game.Player.EquippedWeapon = foundItem;
+                    }
+                    else
+                    {
+                        Output.WriteLine($"You do not own this item!")
+                    }
+                }
+            }
+
+            //TODO
+            public void Unequip(Game game, string[] args) //complex action, adds to moves
+            {
+                if(args.Count != 0)
+                    Output.WriteLine($"Unequip {args[0]}!");
+
+                if(game.Player.EquippedWeapon.name == args[0])
+                    game.Player.EquippedWeapon = game.Player.Fists;
+
+                if(game.Player.EquippedArmor.name == args[0])
+                    game.Player.EquippedArmor = null;
+        }
+
+            //TODO
+            public void Take(Game game, string[] args) //complex action, adds to moves
+            {
+                if (args.Count != 0)
+                    Output.WriteLine($"Take {args[0]}!");
+
+                //look for item in location
+                //Item foundItem = game.Player.Location.Items.FirstOrDefault(x => x.name == args[0]);
+
+                //add itme to player location
+            }
+
+            //TODO
+            public void Drop(Game game, string[] args) //complex action, adds to moves
+            {
+                if (args.Count != 0)
+                    Output.WriteLine($"Drop {args[0]}!");
+
+                Item foundItem = game.Player.Inventory.FirstOrDefault(x => x.name == args[0]);
+
+                game.Player.Inventory.Remove(foundItem);
+
+                //Add item to location
             }
 
         #endregion
@@ -241,7 +325,7 @@ namespace Vion
 
             private void Input_InputReceived(object sender, string commandString)
             {
-                string[] commandArray = commandString.Split();
+                List<string> commandArray = commandString.Split().ToList();
 
                 Command foundCommand = null;
                 foreach(Command command in Commands.Values)
@@ -261,6 +345,7 @@ namespace Vion
                     }
                     else if(foundCommand.ComplexAction != null)
                     {
+                        commandArray.RemoveAt(0);
                         foundCommand.ComplexAction(this, commandArray);
                     }
                     

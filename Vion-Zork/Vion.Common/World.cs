@@ -12,6 +12,9 @@ namespace Vion
         [JsonIgnore]
         public Dictionary<string, Location> LocationsByName => new Dictionary<string, Location>(mLocationsByName);
 
+        [JsonProperty]
+        private string StartingLocation { get; set; }
+
         public Player SpawnPlayer() => new Player(this, StartingLocation);
 
         [OnDeserialized]
@@ -24,9 +27,6 @@ namespace Vion
                 location.UpdateNeighbors(this);
             }
         }
-
-        [JsonProperty]
-        private string StartingLocation { get; set; }
 
         private Dictionary<string, Location> mLocationsByName;
     }

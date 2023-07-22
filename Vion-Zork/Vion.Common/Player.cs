@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Vion
 {
@@ -33,7 +34,25 @@ namespace Vion
 
         public World World { get; }
 
-        #region Properties
+        #region Game Properties
+
+            [JsonIgnore]
+            public string Region
+            {
+                get
+                {
+                    return _region;
+                }
+
+                set
+                {
+                    if (_region != value)
+                    {
+                        _region = value;
+                        RegionChanged?.Invoke(this, _region);
+                    }
+                }
+            }
 
             [JsonIgnore]
             public Location Location
@@ -56,56 +75,15 @@ namespace Vion
             }
 
             [JsonIgnore]
-            public string Region
+            public string LocationName
             {
                 get
                 {
-                    return _region;
+                    return Location?.Name;
                 }
-
                 set
                 {
-                    if (_region != value)
-                    {
-                        _region = value;
-                        RegionChanged?.Invoke(this, _region);
-                    }
-                }
-            }
-
-            [JsonIgnore]
-            public string PlayerName
-            {
-                get
-                {
-                    return _name;
-                }
-
-                set
-                {
-                    if (_name != value)
-                    {
-                        _name = value;
-                        NameChanged?.Invoke(this, _name);
-                    }
-                }
-            }
-
-            [JsonIgnore]
-            public Gender? PlayerGender
-            {
-                get
-                {
-                    return _gender;
-                }
-
-                set
-                {
-                    if (_gender != value)
-                    {
-                        _gender = value;
-                        GenderChanged?.Invoke(this, _gender);
-                    }
+                    Location = World?.LocationsByName.GetValueOrDefault(value);
                 }
             }
 
@@ -128,6 +106,24 @@ namespace Vion
             }
 
             [JsonIgnore]
+            public int Moves
+            {
+                get
+                {
+                    return _moves;
+                }
+
+                set
+                {
+                    if (_moves != value)
+                    {
+                        _moves = value;
+                        //GoldChanged?.Invoke(this, _moves);
+                    }
+                }
+            }
+
+            [JsonIgnore]
             public int Score
             {
                 get
@@ -145,20 +141,24 @@ namespace Vion
                 }
             }
 
+        #endregion
+
+        #region Player Properties
+
             [JsonIgnore]
-            public int Gold
+            public string PlayerName
             {
                 get
                 {
-                    return _gold;
+                    return _name;
                 }
 
                 set
                 {
-                    if (true)
+                    if (_name != value)
                     {
-                        _gold = value;
-                        GoldChanged?.Invoke(this, _gold);
+                        _name = value;
+                        NameChanged?.Invoke(this, _name);
                     }
                 }
             }
@@ -215,33 +215,98 @@ namespace Vion
             }
 
             [JsonIgnore]
-            public int Moves
+            public Gender? PlayerGender
             {
                 get
                 {
-                    return _moves;
+                    return _gender;
                 }
 
                 set
                 {
-                    if (_moves != value)
+                    if (_gender != value)
                     {
-                        _moves = value;
-                        //GoldChanged?.Invoke(this, _moves);
+                        _gender = value;
+                        GenderChanged?.Invoke(this, _gender);
                     }
                 }
             }
 
             [JsonIgnore]
-            public string LocationName
+            public int Gold
             {
                 get
                 {
-                    return Location?.Name;
+                    return _gold;
+                }
+
+                set
+                {
+                    if (true)
+                    {
+                        _gold = value;
+                        GoldChanged?.Invoke(this, _gold);
+                    }
+                }
+            }
+
+        #endregion
+
+        #region Inventory Properties
+
+            [JsonIgnore]
+            public List<Item> Inventory
+            {
+                get
+                {
+                    return game.Player._inventory;
                 }
                 set
                 {
-                    Location = World?.LocationsByName.GetValueOrDefault(value);
+                    game.Player._inventory = value;
+                }
+            }
+
+            [JsonIgnore]
+            public Weapon? EquippedWeapon
+            {
+                get
+                {
+                    return _equippedWeapon;
+                }
+
+                set
+                {
+                    if (_equippedWeapon != value)
+                    {
+                        _equippedWeapon = value;
+                    }
+                }
+            }
+
+            [JsonIgnore]
+            public Armor? EquippedArmor
+            {
+                get
+                {
+                    return _equippedArmor;
+                }
+
+                set
+                {
+                    if (_equippedArmor != value)
+                    {
+                        _equippedArmor = value;
+                    }
+                }
+            }
+
+            [JsonIgnore]
+            public Weapon Fists
+            {
+                get
+                {
+                    return _fists;
                 }
             }
 
@@ -257,6 +322,13 @@ namespace Vion
             Compass = "--";
             MaxHealth = 20;
             Health = MaxHealth;
+
+            Inventory = new List<Item>()
+            {
+                new Weapon("sword", 10f, 5f, 0.80f)
+            };
+
+            EquippedWeapon = Inventory[0];
         }
 
         public void TakeDamage(Game game)
@@ -275,9 +347,12 @@ namespace Vion
             return isValidMove;
         }
 
-        #region Memeber Vars
+        #region Member Vars
 
             private Location _location;
+            private List<Item> _inventory;
+            private Weapon? _equippedWeapon;
+            private Armor? _equippedArmor;
             private string _region;
             private string _name;
             private Gender? _gender;
@@ -288,6 +363,8 @@ namespace Vion
             private int _moves;
             private int _health;
             private int _maxHealth;
+
+            private Weapon _fists = new Weapon("Fists", 0f, 1f, 0.9f);
 
         #endregion
     }

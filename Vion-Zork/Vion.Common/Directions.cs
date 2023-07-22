@@ -5,6 +5,8 @@
         NORTH,
         SOUTH,
         EAST,
-        WEST
+        WEST,
+        INSIDE,
+        OUTSIDE
     }
 }

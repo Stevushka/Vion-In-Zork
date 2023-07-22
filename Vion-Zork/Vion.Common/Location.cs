@@ -22,7 +22,7 @@ namespace Vion
         [JsonIgnore]
         public IReadOnlyDictionary<Directions, Location> Neighbors { get; private set; }
 
-        public static bool operator ==(Location lhs, Location rhs)
+        public static bool operator == (Location lhs, Location rhs)
         {
             if(ReferenceEquals(lhs, rhs))
             {
